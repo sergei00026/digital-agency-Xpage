@@ -1,0 +1,837 @@
+@use "sass:math";
+
+// Подключение миксинов ===========================================================================================================================================================================================================================================================================
+@import "base/mixins";
+
+// Подключение шрифтов ===========================================================================================================================================================================================================================================================================
+//&display=swap - добавить при подключении через плагин
+@import url("https://fonts.googleapis.com/css?family=Montserrat:regular&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Barlow:regular&display=swap");
+// Подключить если есть локальные файлы шрифтов
+@import "fonts/fonts";
+
+// Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
+// Подключить если есть файл иконочного шрифта
+@import "fonts/icons";
+
+// Настройки шаблона ============================================================================================================================================================================================================================================================================================================================================================================================
+
+// Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
+$fontFamily: "Frank";
+$fontSize: rem(20); // где 14(px) - размер шрифта по умолчанию из макета
+
+// Основные цвета
+$mainColor: #373334; // Цвет шрифта по умолчанию
+
+// Настройки адаптивной сетки ===============================================================================================================================================================================================================================================================================================
+
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1903;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1504;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 30;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+// ============================================================================================================================================================================================================================================================================================================================================================================================
+// ============================================================================================================================================================================================================================================================================================================================================================================================
+
+// Обнуление ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
+@import "base/null";
+
+// Стили тега BODY ============================================================================================================================================================================================================================================================================================================================================================================================
+
+body {
+	// Скролл заблокирован
+	.lock & {
+		overflow: hidden;
+		touch-action: none;
+	}
+	// Сайт загружен
+	.loaded & {
+	}
+}
+
+// Оболочка wrapper ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	// Прижимаем footer
+	> main {
+		flex: 1 1 auto;
+	}
+	// Фикс для слайдеров
+	> * {
+		min-width: 0;
+	}
+}
+// Ограничивающий контейнер ======================================================================================================================================================================================================================
+
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+	// Отзывчивая
+	[class*="__container"] {
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+			margin: 0 auto;
+		}
+		@if ($containerPadding>0) {
+			padding: 0 rem(math.div($containerPadding, 2));
+		}
+	}
+} @else {
+	// По брейк-поинтам
+	[class*="__container"] {
+		margin: 0 auto;
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+		} @else {
+			@if ($containerPadding>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+		@media (max-width: $pc) {
+			max-width: rem(970);
+		}
+		@media (max-width: $tablet) {
+			max-width: rem(750);
+		}
+		@media (max-width: $mobile) {
+			max-width: none;
+			@if ($containerPadding>0 and $maxWidthContainer>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+	}
+}
+
+// Подключение базовых стилей, шаблонов (заготовок) и вспомогательных  классов
+// Для подключения/отключения конкретных стилей смотри base.scss
+@import "base";
+
+// Подключение стилей общих элементов проекта
+@import "common";
+
+// Подключение стилей отдельных блоков
+@import "header";
+@import "footer";
+
+// Подключение стилей отдельных страниц
+
+.page {
+	background: #f2f2f2;
+	// .page__main
+	&__main {
+	}
+}
+.main-page {
+	// .main-page__container
+	&__container {
+	}
+	// .main-page__title
+	&__title {
+		font-weight: 700;
+		@include adaptiveValue("font-size", 70, 30);
+		line-height: 125%;
+		padding-top: 55px;
+		&:not(:last-child) {
+			margin-bottom: 5px;
+		}
+	}
+	// .main-page__address
+	&__address {
+		font-size: 16px;
+		line-height: 135%;
+		color: #959595;
+		&:not(:last-child) {
+			margin-bottom: 55px;
+		}
+	}
+	// .main-page__body
+	&__body {
+	}
+	// .main-page__action
+	&__action {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 50px;
+		&:not(:last-child) {
+			margin-bottom: 83px;
+		}
+		@media (max-width: $tablet) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media (max-width: em(670)) {
+			grid-template-columns: 1fr;
+			gap: 30px;
+		}
+	}
+	// .main-page__item
+	&__item {
+		position: relative;
+		&::before {
+			top: 30%;
+			left: 24px;
+			position: absolute;
+			font-size: 25px;
+			color: black;
+		}
+		&::after {
+			content: "";
+			background: url("@img/header/arrow.svg") center no-repeat;
+			position: absolute;
+			top: 50%;
+			right: 26px;
+			width: 8px;
+			height: 4px;
+		}
+	}
+	// .main-page__calendar
+	&__calendar {
+		border: 2px solid #373334;
+		width: 100%;
+		font-size: 16px;
+		background: transparent;
+		color: black;
+		outline: none;
+		min-height: 56px;
+		padding: 19px 26px 17px 60px;
+	}
+	// .main-page__select
+	&__select {
+	}
+	// .main-page__news
+	&__news {
+	}
+}
+
+.news-page {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 50px;
+	row-gap: 74px;
+	padding-bottom: 85px;
+	@media (max-width: $tablet) {
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 40px;
+		row-gap: 54px;
+	}
+	@media (max-width: em(670)) {
+		grid-template-columns: 1fr;
+	}
+
+	// .news-page__item
+	&__item {
+		text-align: center;
+	}
+	// .news-page__img
+	&__img {
+		display: inline-block;
+		text-align: center;
+		position: relative;
+
+		&::before {
+			content: "";
+			background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 75.19%, rgba(0, 0, 0, 0.53) 100%);
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+		img {
+			max-width: 100%;
+		}
+		&:not(:last-child) {
+			margin-bottom: 35px;
+		}
+	}
+	// .news-page__tags
+	&__tags {
+		text-align: left;
+		display: flex;
+		gap: 20px;
+		align-items: center;
+		flex-wrap: wrap;
+		&:not(:last-child) {
+			margin-bottom: rem(12);
+		}
+	}
+	// .news-page__category
+	&__category {
+		font-size: 16px;
+		line-height: 135%;
+		color: #9f0023;
+	}
+	// .news-page__data
+	&__data {
+		font-size: 14px;
+		line-height: 115%;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: #959595;
+		&:not(:first-child) {
+			margin-left: 11px;
+		}
+	}
+	// .news-page__heading
+	&__heading {
+		text-align: left;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: math.div(27, 20);
+		color: #373334;
+		&:not(:last-child) {
+			@include adaptiveValue("margin-bottom", 46, 25);
+		}
+	}
+	// .news-page__link
+	&__link {
+		text-align: left;
+	}
+	// .main-page__bottom-news
+	&__bottom-news {
+	}
+	// .main-page__number
+	&__number {
+	}
+	// .main-page__number
+	&__number {
+	}
+}
+//====================================
+.bottomnews-page {
+	&__container {
+	}
+	// .bottomnews-page__body
+	&__body {
+		display: grid;
+		background: #ffffff;
+		@media (min-width: $mobile) {
+			grid-template-columns: repeat(3, 1fr);
+			padding: 48px 49px;
+		}
+		@media (max-width: $mobile) {
+			gap: 30px;
+			margin: 0 -15px;
+		}
+	}
+
+	// .bottomnews-page__img
+	&__img {
+		display: inline-grid;
+		justify-self: center;
+		text-align: center;
+		position: relative;
+		align-self: start;
+		&::before {
+			content: "";
+			background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 75.19%, rgba(0, 0, 0, 0.53) 100%);
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+		}
+		img {
+			max-width: 100%;
+		}
+	}
+	// .bottomnews-page__content
+	&__content {
+		position: relative;
+		@media (min-width: $mobile) {
+			grid-column: span 2;
+			padding-left: 51px;
+		}
+		@media (max-width: $mobile) {
+			padding: 0 15px;
+		}
+	}
+	// .bottomnews-page__tags
+	&__tags {
+		text-align: left;
+		display: flex;
+		gap: 20px;
+		align-items: center;
+		flex-wrap: wrap;
+		&:not(:last-child) {
+			margin-bottom: rem(23);
+		}
+	}
+	// .bottomnews-page__category
+	&__category {
+		font-size: 16px;
+		line-height: 135%;
+		color: #9f0023;
+	}
+	// .bottomnews-page__data
+	&__data {
+		font-size: 14px;
+		line-height: 115%;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: #959595;
+		&:not(:first-child) {
+			margin-left: 20px;
+		}
+	}
+	// .bottomnews-page__heading
+	&__heading {
+		font-weight: 500;
+		font-size: 20px;
+		line-height: math.div(27, 20);
+		&:not(:last-child) {
+			@include adaptiveValue("margin-bottom", 70, 40);
+		}
+	}
+	// .bottomnews-page__description
+	&__description {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: math.div(26, 16);
+	}
+	// .bottomnews-page__link
+	&__link {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+//===================================
+
+.number-main {
+	// .number-main__container
+	&__container {
+	}
+	// .number-main__body
+	&__body {
+		display: flex;
+		justify-content: center;
+		font-weight: 700;
+		font-size: 20px;
+		line-height: 135%;
+		align-items: center;
+		gap: 32px;
+		padding: 70px 0;
+	}
+	// .number-main__prev
+	&__prev {
+		color: #959595;
+		font-size: 14px;
+	}
+	// .number-main__numbers
+	&__numbers {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+	// .number-main__number
+	&__number {
+		line-height: 135%;
+		@include adaptiveValue("font-size", 20, 14);
+		// .number-main__number_activ
+		&_activ {
+			position: relative;
+
+			&::before {
+				content: "";
+				width: 140%;
+				position: absolute;
+				bottom: 0;
+				left: -20%;
+				height: 2px;
+				background: #9f0023;
+			}
+		}
+	}
+	// .number-main__numlist
+	&__numlist {
+	}
+	// .number-main__next
+	&__next {
+		transform: rotate(180deg);
+		color: #959595;
+		font-size: 14px;
+	}
+}
+
+// ====================================================================================
+
+.news {
+	// .news__main
+	&__main {
+	}
+}
+.main-news {
+	// .main-news__container
+	&__container {
+		padding-bottom: 136px;
+	}
+	// .main-news__body
+	&__body {
+		padding-top: 52px;
+	}
+	// .main-news__title
+	&__title {
+		font-weight: 700;
+		@include adaptiveValue("font-size", 52, 30);
+		line-height: 125%;
+		&:not(:last-child) {
+			margin-bottom: 16px;
+		}
+	}
+	// .main-news__address
+	&__address {
+		font-size: 16px;
+		line-height: 135%;
+		color: #959595;
+		&:not(:last-child) {
+			margin-bottom: 75px;
+		}
+	}
+	// .main-news__block
+	&__block {
+		@media (min-width: $tablet) {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			& > div,
+			h2 {
+				grid-column: span 2;
+			}
+		}
+	}
+
+	// .main-news__tags
+	&__tags {
+		position: relative;
+		padding-bottom: 17px;
+		display: flex;
+		align-items: center;
+		gap: 40px;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 2px;
+			background: #373334;
+		}
+	}
+	// .main-news__category
+	&__category {
+		font-size: 16px;
+		line-height: 135%;
+		color: #9f0023;
+	}
+	// .main-news__data
+	&__data {
+		font-size: 12px;
+		line-height: 115%;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: #959595;
+	}
+	// .main-news__description
+	&__description {
+		padding-top: 43px;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: math.div(27, 20);
+		&:not(:last-child) {
+			margin-bottom: 29px;
+		}
+	}
+	// .main-news__text
+	&__text {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 26px;
+		&:not(:last-child) {
+			margin-bottom: 52px;
+		}
+	}
+	// .main-news__video
+	&__video {
+		video {
+			max-width: 100%;
+			object-fit: cover;
+		}
+		&:not(:last-child) {
+			margin-bottom: 47px;
+		}
+	}
+	// .main-news__man
+	&__man {
+		display: flex;
+		flex-direction: column;
+		&:not(:last-child) {
+			margin-bottom: 26px;
+		}
+	}
+	// .main-news__auhor
+	&__auhor {
+		font-weight: 500;
+		font-size: 20px;
+		line-height: math.div(27, 20);
+	}
+	// .main-news__post
+	&__post {
+		font-size: 14px;
+		line-height: 135%;
+		color: #959595;
+	}
+	// .main-news__story
+	&__story {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: math.div(26, 16);
+		padding-bottom: 48px;
+		position: relative;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 2px;
+			background: #373334;
+		}
+		&:not(:last-child) {
+			margin-bottom: 48px;
+		}
+	}
+	// .main-news__endstory
+	&__endstory {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: math.div(26, 16);
+		&:not(:last-child) {
+			margin-bottom: 72px;
+		}
+	}
+	// .main-news__ending
+	&__ending {
+		display: grid;
+		align-items: start;
+		gap: 50px;
+		@media (min-width: $mobile) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	// .main-news__item
+	&__item {
+		display: flex;
+		flex-direction: column;
+	}
+	// .main-news__key
+	&__key {
+		font-weight: 300;
+		font-size: 16px;
+		line-height: 135%;
+		position: relative;
+		padding-bottom: 14px;
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			left: 0;
+			bottom: 0;
+			height: 2px;
+			background: #373334;
+			@media (max-width: $mobile) {
+				width: 70%;
+			}
+		}
+	}
+	// .main-news__value
+	&__value {
+		padding-top: 14px;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 135%;
+		// .main-news__value_bold
+		&_bold {
+			font-weight: 500;
+			font-size: 20px;
+			line-height: math.div(27, 20);
+		}
+	}
+	// .main-news__socilas
+	&__socilas {
+		padding-top: 14px;
+
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+	// .main-news__social
+	&__social {
+		transition: all 0.3s ease 0s;
+		&:hover {
+			color: #9f0023;
+		}
+	}
+}
+//==================================================
+.news {
+	// .news__coment
+	&__coment {
+	}
+}
+.coment-news {
+	background: #373334;
+	// .coment-news__container
+	&__container {
+		padding-top: 90px;
+		padding-bottom: 108px;
+
+		@media (min-width: $tablet) {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	// .coment-news__form
+	&__form {
+		color: #ffffff;
+		font-size: 16px;
+		grid-column: span 2;
+	}
+	// .coment-news__title
+	&__title {
+		font-weight: 700;
+		@include adaptiveValue("font-size", 52, 26);
+		line-height: 125%;
+		&:not(:last-child) {
+			margin-bottom: 54px;
+		}
+	}
+	// .coment-news__row
+	&__row {
+		display: flex;
+		gap: 50px;
+		@media (min-width: $mobile) {
+			align-items: center;
+		}
+		&_1 {
+			margin-bottom: rem(48);
+			@media (max-width: $mobile) {
+				flex-direction: column;
+			}
+		}
+		&_2 {
+			margin-bottom: 82px;
+		}
+	}
+	// .coment-news__name
+	&__name {
+		@media (min-width: $mobile) {
+			flex: 1 1 338px;
+		}
+		input {
+		}
+		position: relative;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 2px;
+			background: #ffffff;
+		}
+	}
+	// .coment-news__email
+	&__email {
+		@media (min-width: $mobile) {
+			flex: 1 1 338px;
+		}
+		input {
+		}
+		position: relative;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 2px;
+			background: #ffffff;
+		}
+	}
+	// .coment-news__file
+	&__file {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-width: rem(160);
+		cursor: pointer;
+		input {
+			display: none;
+		}
+	}
+	// .coment-news__newcoment
+	&__newcoment {
+		flex: 1 1 auto;
+		input {
+		}
+		position: relative;
+		&::after {
+			content: "";
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			height: 2px;
+			background: #ffffff;
+		}
+	}
+	// .coment-news__btn
+	&__btn {
+		border: 2px solid #ffffff;
+		border-radius: 56px;
+		padding: 17px 30px;
+	}
+}
+
+input {
+	background: transparent;
+	color: inherit;
+	min-height: 48px;
+	display: flex;
+	align-items: center;
+	outline: none;
+	font-size: inherit;
+	width: 100%;
+	&::placeholder {
+		color: inherit;
+		font-size: inherit;
+	}
+}

@@ -1,0 +1,70 @@
+//====================================================================================================
+.footer {
+	// .footer__container
+	&__container {
+	}
+	// .footer__body
+	&__body {
+	}
+	// .footer__subscription
+	&__subscription {
+		padding-top: 59px;
+		padding-bottom: 52px;
+		position: relative;
+		&::after {
+			content: "";
+			width: 100%;
+			background: #373334;
+			height: 2px;
+			display: block;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+		}
+	}
+	// .footer__call
+	&__call {
+		&:not(:last-child) {
+			margin-bottom: 16px;
+		}
+	}
+	// .footer__socials
+	&__socials {
+		display: flex;
+		gap: 20px;
+		align-items: center;
+	}
+	// .footer__social
+	&__social {
+		transition: all 0.3s ease 0s;
+		&:hover {
+			color: #9f0023;
+		}
+	}
+	// .footer__bottom
+	&__bottom {
+		padding-top: 47px;
+		padding-bottom: 49px;
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 15px;
+	}
+	// .footer__copy
+	&__copy {
+	}
+	// .footer__copytext
+	&__copytext {
+		line-height: 170%;
+	}
+	// .footer__politika
+	&__politika {
+		line-height: 170%;
+	}
+	// .footer__xpage
+	&__xpage {
+	}
+}
+
+//====================================================================================================

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+	@@include('html/_head.htm',{
+	"title":"News"
+	})
+	<body>
+		<div class="wrapper">
+			@@include('html/_header.htm',{})
+			<main class="news">
+				<section class="news__main main-news">
+					<div class="main-news__container">
+						<div class="main-news__body">
+							<h1 class="main-news__title">Госпитальная база закрыта, учреждение вернётся в «доковидный» режим после дезинфекции. Роддом Златоуста вновь откроет свои двери 8 февраля</h1>
+							<div class="main-news__address">Главная / Новости / Медицина</div>
+							<div class="main-news__block">
+								<div class="main-news__tags">
+									<div class="main-news__category">Медицина</div>
+									<div class="main-news__data">29/01/2021</div>
+								</div>
+								<h2 class="main-news__description">Ещё одна главная новость дня — с 8 февраля златоустовский роддом возвращается к привычному формату работы. Госпитальную базу для лечения больных коронавирусной инфекцией переводят в профильный режим. Приказ Министерство здравоохранения Челябинской области выпустило 27 января.</h2>
+								<div class="main-news__text">Напомним, перепрофилировать родильный дом решили в связи с ежедневным большим приростом златоустовцев, заболевших ковид-19. За это время лечение на госпитальной базе прошли свыше 1000 пациентов.</div>
+								<div class="main-news__video">
+									<video src="#" poster="img/news/main/video.jpg">
+
+									</video>
+
+								</div>
+								<div class="main-news__man">
+									<div class="main-news__auhor">Александр Дорофеев</div>
+									<div class="main-news__post">главный врач родильного дома г. Златоуста:</div>
+								</div>
+								<div class="main-news__story">«На сегодняшний день в МПЦ находятся 46 больных. Большая часть из них будет переведена на базу квартала Медик и меньшая часть – на базу долечивания, в район метзавода. В воскресенье к нам приезжает дезостанция для обработки всех помещений. С 1 по 7 число проводится заключительная дезинфекция всего родильного дома. С 8 числа мы начинаем принимать беременных и рожениц нашего города и горнозаводской зоны».</div>
+								<div class="main-news__endstory">Подготовка к возвращению профильной деятельности больниц проводится тщательным образом. Это полная дезинфекция помещений, забор ряда лабораторных анализов. И только после разрешения всех инстанций медицинское учреждение поступает к работе. Златоуст — не единственный город, где в связи со стабилизацией обстановки с коронавирусной инфекцией медицинские объекты возвращаются к плановому приёму пациентов. Решение по сокращению коечных мест для больных ковидом принимается оперативным штабом по борьбе с коронавирусной инфекцией при Правительстве Челябинской области. Оставшиеся ковид-базы перейдут в прежний режим работы при условии улучшения ситуации.</div>
+								<div class="main-news__ending">
+									<div class="main-news__item">
+										<div class="main-news__key">Автор материала</div>
+										<div class="main-news__value main-news__value_bold">Иван Анатольев</div>
+									</div>
+									<div class="main-news__item">
+										<div class="main-news__key">Теги</div>
+										<div class="main-news__value">Роддом / Вакцина / Коронавирус</div>
+									</div>
+									<div class="main-news__item">
+										<div class="main-news__key">Поделиться</div>
+										<div class="main-news__socilas">
+											<a href="" class="main-news__social _icon-youtube"></a>
+											<a href="" class="main-news__social _icon-facebook"></a>
+											<a href="" class="main-news__social _icon-vk"></a>
+											<a href="" class="main-news__social _icon-odnok"></a>
+											<a href="" class="main-news__social _icon-insta"></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="news__coment coment-news">
+					<div class="coment-news__container">
+						<form action="" class="coment-news__form">
+							<h2 class="coment-news__title">Оставьте свой комментарий</h2>
+							<div class="coment-news__row coment-news__row_1">
+								<div class="coment-news__name"><input type="text" placeholder="Имя"></div>
+								<div class="coment-news__email"><input type="email" placeholder="E-mail"></div>
+								<label class="coment-news__file _icon-screpka">Прикрепить фото<input type="file"></label>
+							</div>
+							<div class="coment-news__row coment-news__row_2">
+								<div class="coment-news__newcoment"><input type="text" placeholder="Комментарий"></div>
+							</div>
+							<div class="coment-news__row coment-news__row_3">
+								<button type="submit" class="coment-news__btn">Отправить</button>
+							</div>
+						</form>
+					</div>
+				</section>
+			</main>
+			<div class="a" data-datepicker style="display: none;"></div>
+
+			@@include('html/_footer.htm',{})
+		</div>
+		@@include('html/_popup.htm',{})
+		@@include('html/_js.htm',{})
+	</body>
+</html>

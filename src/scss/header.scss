@@ -1,0 +1,267 @@
+//====================================================================================================
+.header {
+	position: relative;
+	// .header__container
+	&__container {
+	}
+	// .header__top
+	&__top {
+		@include adaptiveValue("padding-top", 52, 32);
+		@include adaptiveValue("padding-bottom", 34, 14);
+	}
+	// .header__main
+	&__main {
+		padding: 24px 0;
+	}
+}
+.top-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+	@media (max-width: em(520)) {
+		display: block;
+	}
+
+	// .top-header_btn
+	&_btn {
+		border: 2px solid #9f0023;
+		border-radius: 56px;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: math.div(16, 16);
+		color: #9f0023;
+		padding: 16px 32px;
+		@media (max-width: em(520)) {
+			display: none;
+		}
+	}
+	// .top-header__contacts
+	&__contacts {
+		display: flex;
+		align-items: center;
+		gap: 61px;
+		@media (max-width: em(520)) {
+			justify-content: space-between;
+		}
+	}
+	// .top-header__phone
+	&__phone {
+		font-weight: 700;
+		font-size: 20px;
+		line-height: 135%;
+	}
+	// .top-header__search
+	&__search {
+	}
+}
+
+.main-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+	gap: 20px;
+	&::after {
+		content: "";
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 4px;
+		background: $mainColor;
+		@media (max-width: em(650)) {
+			display: none;
+		}
+	}
+	// .main-header__navigation
+	&__navigation {
+		@media (max-width: em(650)) {
+			position: fixed;
+			top: 0;
+			left: -100%;
+			height: 100%;
+			width: 100%;
+			background: rgba(0, 0, 0, 0.804);
+			overflow-y: auto;
+			transition: all 0.3s ease 0s;
+		}
+	}
+	// .main-header__list
+	&__list {
+		display: flex;
+		align-items: center;
+		@include adaptiveValue("gap", 48, 20);
+		font-weight: 700;
+		line-height: 135%;
+		@media (max-width: em(650)) {
+			padding: 50px 20px;
+			flex-direction: column;
+			align-items: flex-start;
+			color: #fff;
+			z-index: 200;
+			overflow-y: auto;
+			display: inline-flex;
+
+			& > li {
+				display: block !important;
+			}
+		}
+	}
+	// .main-header__item
+	&__item {
+		@media (max-width: em(1040)) {
+			&:last-child {
+				display: none;
+			}
+		}
+		@media (max-width: em(940)) {
+			&:nth-last-child(2) {
+				display: none;
+			}
+		}
+		@media (max-width: $mobile) {
+			&:nth-last-child(3) {
+				display: none;
+			}
+		}
+	}
+	// .main-header__link
+	&__link {
+		position: relative;
+		&::before {
+			transition: all 0.5s ease 0s;
+			content: "";
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 0%;
+			height: 2px;
+			background: transparent;
+		}
+		&:hover {
+			&::before {
+				width: 100%;
+				background: #000;
+			}
+		}
+
+		// .main-header__link_arrow
+		&_arrow {
+			display: flex;
+			align-items: center;
+			gap: 8.5px;
+			&::after {
+				content: "";
+				background: url("@img/header/arrow.svg") center no-repeat;
+				width: 8px;
+				height: 4px;
+				@media (max-width: em(650)) {
+					filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(161deg) brightness(104%) contrast(104%);
+				}
+			}
+		}
+	}
+
+	// .main-header__sub-list
+	&__sub-list {
+		position: absolute;
+		background: #fff;
+		z-index: 2;
+		padding: 5px;
+		& > :not(:last-child) {
+			margin-bottom: 10px;
+		}
+		@media (max-width: em(650)) {
+			background: transparent;
+			position: relative;
+		}
+	}
+	// .main-header__sub-item
+	&__sub-item {
+	}
+	// .main-header__sub-link
+	&__sub-link {
+	}
+	// .main-header__subscription
+	&__subscription {
+		display: flex;
+		align-items: center;
+		gap: 48px;
+	}
+	// .main-header__call
+	&__call {
+		@media (max-width: em(1305)) {
+			display: none;
+		}
+	}
+	// .main-header__socials
+	&__socials {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+	}
+	// .main-header__social
+	&__social {
+		transition: all 0.3s ease 0s;
+		&:hover {
+			color: #9f0023;
+		}
+	}
+}
+._active-menu {
+	left: 0;
+	z-index: 10;
+}
+
+//====================================================================================================
+
+//Burger
+
+.icon-menu {
+	display: none;
+	@media (max-width: 650px) {
+		display: block;
+		position: relative;
+		flex: 0 0 30px;
+		height: rem(18);
+		cursor: pointer;
+		z-index: 5;
+		span,
+		&::before,
+		&::after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			right: 0;
+			position: absolute;
+			width: 100%;
+			height: rem(2);
+			background-color: #000;
+		}
+		&::before {
+			top: 0;
+		}
+		&::after {
+			bottom: 0;
+		}
+		span {
+			top: calc(50% - rem(1));
+		}
+		.menu-open & {
+			span {
+				width: 0;
+			}
+			&::before,
+			&::after {
+			}
+			&::before {
+				top: calc(50% - rem(1));
+				transform: rotate(-45deg);
+			}
+			&::after {
+				bottom: calc(50% - rem(1));
+				transform: rotate(45deg);
+			}
+		}
+	}
+}
