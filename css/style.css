@@ -1009,7 +1009,7 @@ textarea.input {
 }
 
 ._active-menu {
-  left: 0;
+  left: 0 !important;
   z-index: 10;
 }
 
